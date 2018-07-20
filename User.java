@@ -7,7 +7,7 @@ import java.util.Observable;
 public class User implements Users,Visitable{
 	private String ID="";
 	private List<Message>newsFeed;
-	private List<Users>follower;
+	private List<User>follower;
 	private List<Users>following;
 	private List<Message>ownMessage;
 	private long creationTime;
@@ -15,7 +15,7 @@ public class User implements Users,Visitable{
 	
 	public User(String id){
 		ID = id;
-		follower = new ArrayList<Users>();
+		follower = new ArrayList<User>();
 		following = new ArrayList<Users>();
 		newsFeed = new ArrayList<Message>();
 		ownMessage = new ArrayList<Message>();
@@ -24,6 +24,10 @@ public class User implements Users,Visitable{
 	
 	public long getCreationTime(){
 		return creationTime;
+	}
+	
+	public void setLastUpdateTime(long time){
+		lastUpdateTime = time;
 	}
 	
 	public long getLastUpdateTime(){
@@ -67,6 +71,7 @@ public class User implements Users,Visitable{
 		newsFeed.add(m);
 		for(Users user:follower){
 			user.getList(3).add(m);
+			user.setLastUpdateTime(System.currentTimeMillis);
 		}
 		ownMessage.add(m);
 	}
