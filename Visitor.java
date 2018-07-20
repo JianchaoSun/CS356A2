@@ -16,4 +16,5 @@ public interface Visitor {
        public int getMessageTotal();
 	   public String getPositivePercentage();
 	   public int getGroupTotal();
+	   public User visitLastUpdateTime(TwitterService ts);
 }
