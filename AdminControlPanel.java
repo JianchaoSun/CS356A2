@@ -34,7 +34,7 @@ public class  AdminControlPanel  extends JFrame {
 	private JButton button;
 	private JButton button2;
 	private JTextField textField,textField2;
-	private JButton userTotalButton,groupTotalButton,positiveButton,messageButton;
+	private JButton userTotalButton,groupTotalButton,positiveButton,messageButton,checkID,lastUpdateButton;
 	private Visitor visitor = new ButtonVisitor();
 	private JPanel pan;
 	
@@ -87,6 +87,13 @@ public class  AdminControlPanel  extends JFrame {
 		positiveButton.addActionListener(lfb);
 		messageButton = new JButton("show message total");
 		messageButton.addActionListener(lfb);
+		//add new button
+		lastUpdateButton = new JButton("show last update");
+		lastUpdateButton.addActionListener(lfb);
+		checkID = new JButton("Check valid ID");
+		checkID.addActionListener(lfb);
+		pan.add(checkID);
+		pan.add(lastUpdateButton);
 		
 		pan.add(userTotalButton);
 		pan.add(groupTotalButton);
@@ -149,6 +156,15 @@ public class  AdminControlPanel  extends JFrame {
 				visitor.setGroupZero();
 				visitor.visitGroupTotal((twitterService));
 				JOptionPane.showMessageDialog(null, "total User is: "+ visitor.getGroupTotal());
+			}else if(e.getSource() == checkID){//add new button to check id and find last update
+				if(twitterService.isInvalid()){
+					JOptionPane.showMessageDialog(null, "there are Invalid ID ");
+				}
+				else{
+					JOptionPane.showMessageDialog(null, "no invalid ");
+				}
+			}else if(e.getSource() == lastUpdateButton){
+				JOptionPane.showMessageDialog(null,visitor.visitLastUpdateTime(twitterService).getId());
 			}
 			
 		}
