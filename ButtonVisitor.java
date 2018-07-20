@@ -68,6 +68,19 @@ public class ButtonVisitor implements Visitor{
 	public void setUserZero() {
 		userTotal = 0;
 	}
+	// add new visitor
+	@Override
+	public User visitLastUpdateTime(TwitterService ts) {
+		
+		User lastUpdateUser = new User("null");
+		for (User user:ts.getUserList()){
+			if(user.getLastUpdateTime()>lastUpdateUser.getLastUpdateTime()){
+				lastUpdateUser = user;
+			}
+		}
+		return lastUpdateUser;
+		
+	}
 
 	
 }
