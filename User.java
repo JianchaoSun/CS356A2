@@ -10,6 +10,8 @@ public class User implements Users,Visitable{
 	private List<Users>follower;
 	private List<Users>following;
 	private List<Message>ownMessage;
+	private long creationTime;
+	private long lastUpdateTime = 0;
 	
 	public User(String id){
 		ID = id;
@@ -17,6 +19,15 @@ public class User implements Users,Visitable{
 		following = new ArrayList<Users>();
 		newsFeed = new ArrayList<Message>();
 		ownMessage = new ArrayList<Message>();
+		creationTime = System.currentTimeMillis();
+	}
+	
+	public long getCreationTime(){
+		return creationTime;
+	}
+	
+	public long getLastUpdateTime(){
+		return lastUpdateTime;
 	}
 	
 	public int getPositive(){
@@ -52,6 +63,7 @@ public class User implements Users,Visitable{
  */
 	@Override
 	public void update(Message m) {
+		lastUpdateTime = System.currentTimeMillis();
 		newsFeed.add(m);
 		for(Users user:follower){
 			user.getList(3).add(m);
