@@ -15,6 +15,7 @@ public class TwitterService implements Visitable {
 	private static Map<String,Users>userGroup;
 	private static List<User> userList; //use to count the amount of user
 	private static List<UserGroup>groupList; //count amount of group
+	private boolean isInvalid = false;
 	public static TwitterService getInstance(){
 		if(instance ==null){
 			instance =new TwitterService();
@@ -28,6 +29,12 @@ public class TwitterService implements Visitable {
 		groupList = new ArrayList<UserGroup>();
 	}
 	public void addUser(Users user){
+		if(userGroup.containsKey(user.getId())){
+			isInvalid = true;
+		}
+		if(user.getId().contains(" ")){
+			isInvalid = true;
+		}
 		userGroup.put(user.getId(),user);
 		if(user instanceof User){
 			userList.add((User) user);
@@ -61,8 +68,10 @@ public class TwitterService implements Visitable {
 		visitor.visitGroupTotal(this);
 		visitor.visitUserTotal(this);
 	}
-	
-	
+	//check if contain invalid id
+	public boolean isInvalid(){
+		return isInvalid;
+	}
 	
 
 }
