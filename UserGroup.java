@@ -6,9 +6,15 @@ import java.util.List;
 public class UserGroup implements Users {
 	private String groupID;
 	private List<Users>groups;
+	private long creationTime;
 	public UserGroup(String id){
 		groupID=id;
 		groups=new ArrayList<Users>();
+		creationTime = System.currentTimeMillis();
+	}
+	
+	public long getCreationTime(){
+		return creationTime;
 	}
 
 	@Override
