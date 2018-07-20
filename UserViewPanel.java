@@ -20,12 +20,12 @@ public class UserViewPanel extends JFrame{
 	private JTextField textField,tweetField;
 	private JList followingList,feedList;
 	private DefaultListModel<String> followingModel,feedModel;
-	
+	private JLabel lastUpdateLabel;
 	private JButton button,tweet;
 	private User user;
 	private TwitterService twitterService;
 	public UserViewPanel(User newUser, TwitterService tService){
-		JLabel name = new JLabel(newUser.getId()+" 's tweeter");
+		JLabel name = new JLabel(newUser.getId()+" 's tweeter" +" Creation time "+newUser.getCreationTime() );
 		twitterService = tService;
 		user = newUser;
 		this.setSize(600,600);
@@ -56,7 +56,8 @@ public class UserViewPanel extends JFrame{
 		}
 		feedList =new JList(feedModel);
 		pan.add(feedList);
-		
+		lastUpdateLabel = new JLabel("Last Update time is "+newUser.getLastUpdateTime());
+		pan.add(lastUpdateLabel);
 		pan.add(followingList);
 		
 		pan.setVisible(true);
@@ -68,8 +69,6 @@ public class UserViewPanel extends JFrame{
 		tweet = new JButton("send Tweet");
 		tweet.addActionListener(lfb);
 		pan.add(tweet);
-		
-		
 		this.add(pan);
 		this.setVisible(true);
 	}
@@ -82,6 +81,7 @@ public class UserViewPanel extends JFrame{
 				followingModel.addElement(textField.getText());
 			}else if(e.getSource()==tweet){
 				user.update(new Message(user.getId()+": "+tweetField.getText()));
+				lastUpdateLabel.setText("Last Update time is "+user.getLastUpdateTime());
 			}
 		}
 	}
